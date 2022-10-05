@@ -56,7 +56,7 @@ ROOT_URLCONF = "project.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ['/cnab/templates/upload.html'],
+        "DIRS": ['/cnab/templates/upload.html', '/cnab/templates/store.html'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
