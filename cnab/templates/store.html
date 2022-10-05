@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="{% static "assets/store.css" %}"}" type="text/css"
+    rel="stylesheet" media="screen" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="head">
+        <h1>Transferências: {{name}}</h1>
+        <h3>Saldo: R$ {{balance}}</h3>
+      </div>
+      <ul>
+        {% for transaction in transactions %}
+        <li>
+          <p>Tipo: {{transaction.type}}</p>
+          <p>Valor: {{transaction.value}}</p>
+          <p>CPF: {{transaction.credit_card}}</p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
