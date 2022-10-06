@@ -1,11 +1,6 @@
 from cnab.models import Transaction
 from cnab.serializers import TransactionSerializer
 
-def handle_uploaded_file(f):
-    with open('data.txt', 'wb+') as destination:
-        for chunk in f.chunks():
-            destination.write(chunk)
-
 def handle_list(list):
     for line in list:
         type = line[:1]
