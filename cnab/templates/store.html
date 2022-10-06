@@ -8,12 +8,17 @@
     <title>Document</title>
     <link href="{% static "assets/store.css" %}"}" type="text/css"
     rel="stylesheet" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
       <div class="head">
         <h1>Transferências: {{name}}</h1>
-        <h3>Saldo: R$ {{balance}}</h3>
       </div>
       <ul>
         {% for transaction in transactions %}
@@ -24,6 +29,7 @@
         </li>
         {% endfor %}
       </ul>
+      <h3>Saldo: R$ {{balance}}</h3>
     </div>
   </body>
 </html>
