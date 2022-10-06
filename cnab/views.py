@@ -1,26 +1,31 @@
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from cnab.models import Transaction
 from .forms import UploadFileForm
-from .utils.handle_uploaded_file import handle_uploaded_file, handle_list
+from .utils.handle_uploaded_file import handle_list
 from .utils.handle_store_get import getTransactions, getBalance
+from django.core.files.storage import FileSystemStorage
 
 
 def upload_file(request):
+    context = {}
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
+        context['form'] = form
         if form.is_valid():
-            handle_uploaded_file(request.FILES["arquivo"])
-            with open("data.txt", "r", encoding="utf8") as destination:
+            uploaded_file = request.FILES['arquivo']
+            fs = FileSystemStorage()
+            name = fs.save(uploaded_file.name, uploaded_file)
+            with open(f"media/{uploaded_file.name}", "r", encoding="utf8") as destination:
                 lines = destination.readlines()
-                iSsuccessful = handle_list(lines)
-                if iSsuccessful == False:
-                    return HttpResponseRedirect("/failed/url/")
-                return HttpResponseRedirect("/success/url/")
+                handle_list(lines)
+                successfull = handle_list(lines)
+                if successfull:
+                    context['url'] = fs.url(name)
+                else:
+                    context['error'] = "Upload falhou"
     else:
         form = UploadFileForm()
-    return render(request, "upload.html", {"form": form})
+        context['form'] = form
+    return render(request, "upload.html", context)
 
 def get_operations(request, store_name):
     transactions = getTransactions(store_name)
