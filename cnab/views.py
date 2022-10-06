@@ -11,7 +11,7 @@ def upload_file(request):
     if request.method == "POST":
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            handle_uploaded_file(request.FILES["file"])
+            handle_uploaded_file(request.FILES["arquivo"])
             with open("data.txt", "r", encoding="utf8") as destination:
                 lines = destination.readlines()
                 iSsuccessful = handle_list(lines)
